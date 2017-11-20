@@ -1,0 +1,35 @@
+FROM php:7.1-fpm
+
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends \
+        curl \
+        libz-dev \
+        libpq-dev \
+        libssl-dev \
+        libmcrypt-dev
+
+### Common ext
+RUN docker-php-ext-install -j$(nproc) \
+        iconv \
+        mcrypt \
+        mysqli \
+        pdo_mysql
+
+### GD
+RUN apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libjpeg-dev \
+        libpng12-dev
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd
+
+#### mssql, sybase, freetds, dblib
+RUN apt-get -y install freetds-bin freetds-common freetds-dev libsybdb5
+
+RUN ln -s /usr/lib/x86_64-linux-gnu/libsybdb.a /usr/lib/
+
+RUN docker-php-ext-install mssql
+RUN docker-php-ext-install pdo_dblib
+
+RUN sed -i "/tds version =/c tds version = 8.0" /etc/freetds/freetds.conf

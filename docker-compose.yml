@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+
+  php-fpm:
+    build:
+      context: .
+      dockerfile: Dockerfile-php
+    ports: 9000:9000
+    volumes:
+      - ./:/var/www/app/
