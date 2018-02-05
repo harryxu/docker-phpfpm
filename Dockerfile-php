@@ -50,9 +50,9 @@ RUN pecl install sqlsrv pdo_sqlsrv \
 
 
 #### sybase, freetds, dblib
-RUN apt-get -y install freetds-bin freetds-common freetds-dev libsybdb5
+# RUN apt-get -y install freetds-bin freetds-common freetds-dev libsybdb5
 
-RUN ln -s /usr/lib/x86_64-linux-gnu/libsybdb.a /usr/lib/
+# RUN ln -s /usr/lib/x86_64-linux-gnu/libsybdb.a /usr/lib/
 
-RUN docker-php-ext-install pdo_dblib
-RUN sed -i "/tds version =/c tds version = 8.0" /etc/freetds/freetds.conf
+# RUN docker-php-ext-install pdo_dblib
+# RUN sed -i "/tds version =/c tds version = 8.0" /etc/freetds/freetds.conf
