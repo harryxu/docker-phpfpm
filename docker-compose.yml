@@ -10,3 +10,4 @@ services:
       - 9010:9000
     volumes:
       - ./:/var/www/app/
+      - ./php.ini:/usr/local/etc/php/php.ini
