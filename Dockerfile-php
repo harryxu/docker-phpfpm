@@ -1,4 +1,4 @@
-FROM php:7.1-fpm
+FROM php:7.1-fpm-stretch
 
 ENV ACCEPT_EULA=Y
 
@@ -7,10 +7,12 @@ ADD ./sources.list /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
         curl \
+        gnupg \
         libz-dev \
         libpq-dev \
         libssl-dev \
-        libmcrypt-dev
+        libmcrypt-dev \
+        apt-transport-https
 
 ### Common ext
 RUN docker-php-ext-install -j$(nproc) \
@@ -22,13 +24,13 @@ RUN docker-php-ext-install -j$(nproc) \
         pdo \
         pdo_mysql
 
-### GD
-RUN apt-get install -y \
+### iconv and gd extensions
+RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
-        libjpeg-dev \
-        libpng12-dev
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+        libpng-dev \
+    && docker-php-ext-install -j$(nproc) iconv \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
 
 ### exif
@@ -37,21 +39,13 @@ RUN docker-php-ext-configure exif \
             --enable-exif
 
 
-# Microsoft SQL Server Prerequisites
-# https://laravel-news.com/install-microsoft-sql-drivers-php-7-docker
-RUN  apt-get update \
-    && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-    && curl https://packages.microsoft.com/config/debian/8/prod.list \
-        > /etc/apt/sources.list.d/mssql-release.list \
-    && apt-get install -y --no-install-recommends \
-        locales \
-        apt-transport-https \
-    && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
-    && locale-gen \
-    && apt-get update \
-    && apt-get -y --no-install-recommends install \
-        msodbcsql \
-        unixodbc-dev
+### Microsoft Drivers for PHP for SQL Server
+### https://docs.microsoft.com/en-us/sql/connect/php/microsoft-php-driver-for-sql-server?view=sql-server-2017
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+RUN curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list
+
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends  msodbcsql17 unixodbc-dev
 
 RUN pecl install sqlsrv pdo_sqlsrv \
     && docker-php-ext-enable sqlsrv pdo_sqlsrv
