@@ -3,4 +3,4 @@ version: '2'
 services:
   php-fpm:
     volumes:
-        - ./www.conf:/usr/local/etc/php-fpm.d/www.conf
+        - ./php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
