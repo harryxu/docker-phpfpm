@@ -1,0 +1,6 @@
+version: '2'
+
+services:
+  php-fpm:
+    volumes:
+        - ./php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
