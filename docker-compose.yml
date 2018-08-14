@@ -5,7 +5,6 @@ services:
   php-fpm:
     build:
       context: .
-      dockerfile: Dockerfile-php
     ports:
       - 9010:9000
     volumes:

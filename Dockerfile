@@ -33,10 +33,14 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
 
+### imagick
+RUN apt-get -y install libmagickwand-dev --no-install-recommends \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick
+
 ### exif
 RUN docker-php-ext-install exif
-RUN docker-php-ext-configure exif \
-            --enable-exif
+RUN docker-php-ext-configure exif --enable-exif
 
 
 ### Microsoft Drivers for PHP for SQL Server
