@@ -53,3 +53,6 @@ RUN apt-get install -y --no-install-recommends  msodbcsql17 unixodbc-dev
 
 RUN pecl install sqlsrv pdo_sqlsrv \
     && docker-php-ext-enable sqlsrv pdo_sqlsrv
+
+### Image optimization tools
+RUN apt-get install -y --no-install-recommends jpegoptim optipng pngquant
