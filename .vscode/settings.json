@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "docker-compose.override.yml.sample": "yaml",
+    "*.conf.sample": "NGINX",
+  },
+}
