@@ -16,6 +16,7 @@ services:
 #     volumes:
 #       - ./phpapp:/var/phpapp
 #       - ./nginx/conf.d/:/etc/nginx/conf.d/
+#       - ./nginx/log/:/var/log/nginx
 #     networks:
 #       - app-network
 
