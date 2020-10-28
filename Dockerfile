@@ -13,6 +13,7 @@ RUN apt-get install -y --no-install-recommends \
         libpq-dev \
         libssl-dev \
         libmcrypt-dev \
+        libxml2-dev \
         apt-transport-https \
         jpegoptim optipng pngquant
 
