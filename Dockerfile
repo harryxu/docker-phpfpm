@@ -20,10 +20,12 @@ RUN apt-get install -y --no-install-recommends \
 RUN docker-php-ext-install -j$(nproc) \
         mysqli \
         zip \
-        pdo_mysql
+        pdo_mysql \
+        bcmath \
+        soap
 
 ### iconv and gd extensions
-RUN apt-get update && apt-get install -y \
+RUN apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
