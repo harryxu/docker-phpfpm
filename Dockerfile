@@ -15,6 +15,7 @@ RUN apt-get install -y --no-install-recommends \
         libmcrypt-dev \
         libxml2-dev \
         apt-transport-https \
+        ffmpeg \
         jpegoptim optipng pngquant
 
 ### Common ext
@@ -23,6 +24,7 @@ RUN docker-php-ext-install -j$(nproc) \
         zip \
         pdo_mysql \
         bcmath \
+        exif \
         soap
 
 ### iconv and gd extensions
