@@ -10,3 +10,4 @@ services:
     volumes:
       - ./:/var/www/app/
       - ./php.ini:/usr/local/etc/php/php.ini
+      - ./php-fpm.d/log/:/var/log/fpm-php/
