@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+
+  php-fpm:
+    build:
+      context: .
+    volumes:
+      - ./phpapp/:/var/www/app/
+      - ./php.ini:/usr/local/etc/php/php.ini
+      - ./php-fpm.d/log/:/var/log/fpm-php/
+    networks:
+      - app-network
+
+  httpd:
+    image: httpd:alpine
+    volumes:
+      - ./phpapp/:/var/www/app/
+      - ./apache2/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./apache2/conf/sites/:/usr/local/apache2/conf/sites/
+    ports:
+      - 8089:80
+
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
