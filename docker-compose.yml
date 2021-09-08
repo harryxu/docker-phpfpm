@@ -5,9 +5,35 @@ services:
   php-fpm:
     build:
       context: .
-    ports:
-      - 9030:9000
     volumes:
-      - ./:/var/www/app/
+      - ./phpapp/:/var/www/phpapp/
       - ./php.ini:/usr/local/etc/php/php.ini
       - ./php-fpm.d/log/:/var/log/fpm-php/
+    networks:
+      - app-network
+
+  webserver:
+    image: nginx:alpine
+    ports:
+      - "8081:80"
+    volumes:
+      - ./phpapp/:/var/www/phpapp/
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ./nginx/log/:/var/log/nginx
+    networks:
+      - app-network
+
+  mysqlsrv:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - ./mysql/data/:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 111111
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
