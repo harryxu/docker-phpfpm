@@ -1,6 +1,3 @@
-php-fpm.d/*.conf
-docker-compose.override.yml
-
 ### Linux ###
 *~
 
