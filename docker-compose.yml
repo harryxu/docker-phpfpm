@@ -34,6 +34,13 @@ services:
     networks:
       - app-network
 
+  redis_srv:
+    image: redis:6
+    volumes:
+      - ./redis/data/:/data
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge

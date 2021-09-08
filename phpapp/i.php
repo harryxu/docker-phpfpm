@@ -3,6 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// mysql
 $host = 'mysqlsrv';
 $db   = 'playground';
 $user = 'root';
@@ -40,6 +41,21 @@ if (empty($users)) {
 
 echo 'MySQL data: <pre>';
 print_r($users);
+echo '</pre>';
+
+
+// redis
+$redis = new Redis();
+$redis->connect('redis_srv', 6379);
+echo '</pre>Redis: <br/>';
+echo 'Connection to redis server sucessfully';
+echo '<br />Server is running: ' . $redis->ping();
+$username = $redis->get('username');
+if (empty($username)) {
+    $redis->set('username', 'harry in reids');
+}
+$username = $redis->get('username');
+echo "<br /> $username";
 echo '</pre>';
 
 phpinfo();
