@@ -1,5 +1,5 @@
-php-fpm.d/*.conf
 docker-compose.override.yml
+.env
 
 ### Linux ###
 *~
