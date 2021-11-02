@@ -25,6 +25,7 @@ RUN docker-php-ext-install -j$(nproc) \
         pdo_mysql \
         bcmath \
         exif \
+        xmlrpc \
         soap
 
 ### iconv and gd extensions
