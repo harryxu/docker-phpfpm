@@ -4,8 +4,8 @@ ENV ACCEPT_EULA=Y
 
 ### The uopz extension is focused on providing utilities to aid with unit testing PHP code.
 ### Required by packages like ClockMock. https://github.com/slope-it/clock-mock
-RUN pecl install -o -f uopz-6.1.2 \
-    &&  docker-php-ext-enable uopz
+# RUN pecl install -o -f uopz-6.1.2 \
+#     &&  docker-php-ext-enable uopz
 
 ### Microsoft Drivers for PHP for SQL Server
 ### https://docs.microsoft.com/en-us/sql/connect/php/microsoft-php-driver-for-sql-server?view=sql-server-2017
