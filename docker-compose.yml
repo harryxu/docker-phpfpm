@@ -9,6 +9,8 @@ services:
       - ${LOCAL_DIR}:/var/www/app/
       - ./php.ini:/usr/local/etc/php/php.ini
       - ./php-fpm/log/:/var/log/fpm-php/
+      - ./.config:/root/.config
+      - ./.config/.zshrc:/root/.zshrc
     networks:
       - app-network
 
