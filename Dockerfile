@@ -1,12 +1,37 @@
-FROM harryxu/phpfpm:7.4
+FROM php:5.6-fpm-stretch
 
 ENV ACCEPT_EULA=Y
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends zsh
-RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y
+ADD ./sources.list /etc/apt/sources.list
+
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends \
+        curl \
+        gnupg \
+        libz-dev \
+        libzip-dev \
+        libpq-dev \
+        libssl-dev \
+        libmcrypt-dev \
+        libxml2-dev \
+        apt-transport-https \
+        ffmpeg \
+        jpegoptim optipng pngquant
+
+### Common ext
+RUN docker-php-ext-install -j$(nproc) \
+        mysqli \
+        zip \
+        pdo_mysql \
+        bcmath \
+        exif \
+        pcntl \
+        mcrypt \
+        soap
+
 
 WORKDIR /var/www
+
 
 ### The uopz extension is focused on providing utilities to aid with unit testing PHP code.
 ### Required by packages like ClockMock. https://github.com/slope-it/clock-mock

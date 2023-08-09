@@ -7,12 +7,12 @@ services:
       - ${LOCAL_DIR}:/var/www/
       - ./php.ini:/usr/local/etc/php/php.ini
       - ./php-fpm/log/:/var/log/fpm-php/
-      - ./.config:/root/.config
-      - ./.config/.zshrc:/root/.zshrc
-      - ./.config:/var/www/.config
-      - ./.config/.zshrc:/var/www/.zshrc
+      # - ./.config:/root/.config
+      # - ./.config/.zshrc:/root/.zshrc
+      # - ./.config:/var/www/.config
+      # - ./.config/.zshrc:/var/www/.zshrc
     networks:
-      - app-network
+      - network-lap53
 
   httpd:
     image: httpd:alpine
@@ -21,11 +21,11 @@ services:
       - ./apache2/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
       - ./apache2/conf/sites/:/usr/local/apache2/conf/sites/
     ports:
-      - 8088:80
+      - 8085:80
 
     networks:
-      - app-network
+      - network-lap53
 
 networks:
-  app-network:
+  network-lap53:
     driver: bridge
