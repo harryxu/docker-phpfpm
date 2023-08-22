@@ -1,4 +1,4 @@
-FROM harryxu/phpfpm:7.4
+FROM harryxu/phpfpm:8.2-bookworm
 
 ENV ACCEPT_EULA=Y
 

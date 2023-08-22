@@ -21,7 +21,7 @@ services:
       - ./apache2/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
       - ./apache2/conf/sites/:/usr/local/apache2/conf/sites/
     ports:
-      - 8088:80
+      - 8082:80
 
     networks:
       - app-network
