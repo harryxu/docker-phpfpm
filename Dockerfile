@@ -2,12 +2,6 @@ FROM harryxu/phpfpm:8.2-bookworm
 
 ENV ACCEPT_EULA=Y
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends zsh
-RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y
-
-WORKDIR /var/www
-
 ### The uopz extension is focused on providing utilities to aid with unit testing PHP code.
 ### Required by packages like ClockMock. https://github.com/slope-it/clock-mock
 # RUN pecl install -o -f uopz-6.1.2 \
