@@ -4,7 +4,7 @@ services:
     build:
       context: .
     volumes:
-      - ${LOCAL_DIR}:/var/www/
+      - ./php-fpm/www.conf:/usr/local/etc/php-fpm.d/www.conf
       - ./php.ini:/usr/local/etc/php/php.ini
       - ./php-fpm/log/:/var/log/fpm-php/
     ports:
