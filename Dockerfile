@@ -2,6 +2,8 @@ FROM harryxu/phpfpm:8.2-bookworm
 
 ENV ACCEPT_EULA=Y
 
+ADD ./sources.list /etc/apt/sources.list
+
 RUN apt-get update \
     && apt-get install -y git-all
 
